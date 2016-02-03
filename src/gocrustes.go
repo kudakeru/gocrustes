@@ -2,28 +2,29 @@ package main
 
 import (
 	"flag"
-	"fmt"
+	"log"
 	"net/http"
 )
 
 func main() {
 	verbose := flag.Bool("v", false, "Verbose mode true/false")
 	flag.Parse()
-
 	url := flag.Args()[0]
 
-	resp, err := http.Get(url)
+	response, err := http.Head(url)
 	if err != nil {
-		fmt.Printf("Error retrieving %s: %s", url, err)
+		log.Println("Error while downloading", url, ":", err)
 	}
-	defer resp.Body.Close()
+
+	// Verify if the response was ok
+	if response.StatusCode != http.StatusOK {
+		log.Println("Server return non-200 status: %v\n", response.Status)
+	}
 
 	if *verbose == true {
-		fmt.Printf("Original URL: %s\n", url)
-		fmt.Printf("HTTP Status Code: %d\n", resp.StatusCode)
-		fmt.Printf("Expanded URL: %s", resp.Request.URL.String())
+		log.Printf("Original URL: %s\n", url)
+		log.Printf(response.Request.URL.String())
 	} else {
-		fmt.Println(resp.StatusCode)
-		fmt.Println(resp.Request.URL.String())
+		log.Println(response.Request.URL.String())
 	}
 }
