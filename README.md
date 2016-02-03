@@ -1,7 +1,7 @@
 Description
 -----------
 
-A simple URL expander with optional verbose mode.
+A simple URL expander with optional verbose mode. Named for https://en.wikipedia.org/wiki/Procrustes.
 
 Installation
 ------------
