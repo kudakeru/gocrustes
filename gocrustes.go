@@ -15,7 +15,7 @@ func main() {
 	if u.Scheme == "https" || u.Scheme == "http" {
 		response, err := http.Head(u.String())
 		if err != nil {
-			log.Println("Error while downloading", u, ":", err)
+			log.Println("Error while checking headers", u, ":", err)
 		}
 
 		// Verify if the response was ok
